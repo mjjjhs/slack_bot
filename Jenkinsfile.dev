@@ -1,0 +1,29 @@
+library identifier: 'yanolja-pipeline-library', changelog: false
+
+def meta = publishMeta(
+    awsProfile: 'lq-dev',
+    yanoljaProfile: 'dev',
+    applicationName: 'lqt-slack-bot',
+    environmentName: 'lqt-slack-bot-dev',
+    applicationPath: '.',
+    targetFile: '.docker/version.zip',
+    dockerNamespace: 'lqt',
+    dockerFilePath: '.docker/Dockerfile',
+    phase: 'dev',
+    kafkaEnv: 'dev'
+)
+
+publishAppPipeline meta: meta,
+      timeoutMin: 10, {
+    packageNode meta: meta, nodeVersion:12, {
+        sh "rm -f ${meta.applicationPath}/.docker/version.zip"
+        sh "bash ${meta.applicationPath}/.docker/filebeat.sh ${meta.applicationPath}/.docker/ebextensions/02_filebeat.config ${meta.kafkaEnv}"
+        sh "bash ${meta.applicationPath}/.docker/generate-dockerrun.sh ${meta.applicationName} ${meta.version} ${meta.phase}"
+        sh "bash ${meta.applicationPath}/.docker/generate-version.sh"
+        zip zipFile: "${meta.applicationPath}/.docker/version.zip", dir: "${meta.applicationPath}/.docker/dist", glob: "**/*"
+        sh "npm install"
+        sh "npm run build"
+    }
+    publishDocker meta: meta
+}
+
