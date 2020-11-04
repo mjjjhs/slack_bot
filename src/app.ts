@@ -23,7 +23,9 @@ import {
 let credentials : any;
 process.env.NODE_ENV === 'dev' ? credentials = require('../credentials') : credentials = require('../../credentials')
 process.env.NODE_ENV === 'dev' ? dotenv.config({path: path.join(__dirname, '../.env.dev')}) : dotenv.config({path: path.join(__dirname, '../../.env.dev')});
-
+if(!dotenv.config({path: path.join(__dirname, '../.env.dev')})) {
+  throw new Error('Not Found ENV!');
+}
 
 const app: express.Application = express();
 
