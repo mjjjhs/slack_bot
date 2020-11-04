@@ -20,10 +20,14 @@ import {
   getUserIdArr, setConvertedTodayInKrToStr, setTodayInKrToDate
 } from "./modules/filterSendUser";
 
-let credentials : any;
-process.env.NODE_ENV === 'dev' ? credentials = require('../credentials') : credentials = require('../../credentials')
-process.env.NODE_ENV === 'dev' ? dotenv.config({path: path.join(__dirname, '../.env.dev')}) : dotenv.config({path: path.join(__dirname, '../../.env.dev')});
-if(!dotenv.config({path: path.join(__dirname, '../.env.dev')})) {
+let credentials: any,
+  envPath: string;
+
+process.env.NODE_ENV === 'dev' ? credentials = require('../credentials') : credentials = require('../../credentials');
+process.env.NODE_ENV === 'dev' ? envPath = '../.env.dev' : envPath = '../../.env.dev';
+dotenv.config({path: path.join(__dirname, envPath)});
+
+if(!dotenv.config({path: path.join(__dirname, envPath)})) {
   throw new Error('Not Found ENV!');
 }
 
