@@ -1,5 +1,6 @@
 # slack-bot
 사내 생일 및 입사 축하 슬랙봇 토이프로젝트
+슬랙의 APP 생성 후 해당 APP의 웹훅을 이용한 채널에 멘션 + 이모지 + 이미지로 이루어진 메시지 전송
 
 # slack credentials
 private한 내용의 credentials.json (슬랙의 토큰 정보) 은 따로 관리   
