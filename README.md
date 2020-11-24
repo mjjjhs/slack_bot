@@ -28,3 +28,6 @@ slack 및 google sheet API 관련 값들은 .env.dev로 따로 관리
 ### eb:dev
   
   * aws elastic beanstalk를 위한 script
+
+# 슬랙 메시지 화면
+<img src="https://user-images.githubusercontent.com/4207593/100059193-fe700800-2e6d-11eb-9075-d64dfd33bc74.png" width="500" title="슬랙 화면" alt="슬랙 화면"></img>
